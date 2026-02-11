@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestão de Documentos</title>
+</head>
+<body>
+
+<h1>Listagem de Documentos</h1>
+
+<table border="1" width="100%">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Nome do Arquivo</th>
+        <th>Data</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="doc : ${meusDocumentos}">
+        <td th:text="${doc.id}">1</td>
+        <td th:text="${doc.titulo}">Titulo</td>
+        <td th:text="${doc.nomeArquivo}">arquivo.pdf</td>
+        <td th:text="${doc.dataUpload}">2023-01-01</td>
+    </tr>
+    <tr th:if="${meusDocumentos.empty}">
+        <td colspan="4" align="center">Nenhum documento encontrado.</td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
