@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes do Documento</title>
+</head>
+<body>
+
+<a href="/">Voltar para a Lista</a>
+<hr>
+
+<div th:if="${mensagem}" style="background-color: lightblue; padding: 10px;">
+    <b th:text="${mensagem}"></b>
+</div>
+
+<h1>Detalhes do Arquivo</h1>
+<p><b>Título:</b> <span th:text="${documento.titulo}">Titulo</span></p>
+<p><b>Arquivo:</b> <span th:text="${documento.nomeArquivo}">arquivo.pdf</span></p>
+<p><b>Data Upload:</b> <span th:text="${#temporals.format(documento.dataUpload, 'dd/MM/yyyy HH:mm')}">Data</span></p>
+
+<button onclick="alert('Funcionalidade de Download seria implementada aqui (lendo do disco)')">Baixar Arquivo</button>
+
+<hr>
+
+<h3>Histórico de Comentários</h3>
+
+<form method="POST" th:action="@{/documento/{id}/comentar(id=${documento.id})}" style="background: #eee; padding: 15px;">
+    <label>Adicionar Comentário:</label><br>
+    <textarea name="texto" rows="3" cols="50" required></textarea><br>
+    <button type="submit">Comentar</button>
+</form>
+
+<br>
+
+<table border="1" width="100%">
+    <thead>
+    <tr>
+        <th>Data</th>
+        <th>Comentário</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="comentario : ${documento.comentarios}">
+        <td th:text="${#temporals.format(comentario.dataRegistro, 'dd/MM/yyyy HH:mm')}">Data</td>
+        <td th:text="${comentario.texto}">Texto do comentário...</td>
+    </tr>
+    <tr th:if="${documento.comentarios.empty}">
+        <td colspan="2">Nenhum comentário ainda.</td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

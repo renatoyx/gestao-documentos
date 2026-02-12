@@ -2,6 +2,8 @@ package com.estagio.gestao_documentos.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "documentos")
@@ -24,6 +26,9 @@ public class Documento {
 
     private LocalDateTime dataUpload;
 
+    @OneToMany(mappedBy = "documento", cascade = CascadeType.ALL)
+    private List<Comentario> comentarios = new ArrayList<>();
+
     public Documento() {
     }
 
@@ -34,6 +39,7 @@ public class Documento {
         this.caminhoArquivo = caminhoArquivo;
         this.dataUpload = LocalDateTime.now();
     }
+
 
     public Long getId() {
         return id;
@@ -81,5 +87,13 @@ public class Documento {
 
     public void setDataUpload(LocalDateTime dataUpload) {
         this.dataUpload = dataUpload;
+    }
+
+    public List<Comentario> getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(List<Comentario> comentarios) {
+        this.comentarios = comentarios;
     }
 }
