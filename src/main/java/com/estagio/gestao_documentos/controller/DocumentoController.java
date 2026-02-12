@@ -62,7 +62,6 @@ public class DocumentoController {
         return "redirect:/";
     }
 
-    // --- NOVIDADE: PÁGINA DE DETALHES ---
     @GetMapping("/documento/{id}")
     public String detalhesDocumento(@PathVariable("id") Long id, Model model) {
         Optional<Documento> documentoOpt = documentoRepository.findById(id);
@@ -76,7 +75,6 @@ public class DocumentoController {
         }
     }
 
-    // --- NOVIDADE: SALVAR COMENTÁRIO ---
     @PostMapping("/documento/{id}/comentar")
     public String adicionarComentario(@PathVariable("id") Long id,
                                       @RequestParam("texto") String texto,
