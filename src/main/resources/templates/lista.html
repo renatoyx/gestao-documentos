@@ -2,19 +2,36 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Gestão de Documentos</title>
 </head>
 <body>
 
-<h1>Listagem de Documentos</h1>
+<div th:if="${mensagem}" style="background-color: #d4edda; color: #155724; padding: 10px; margin-bottom: 15px; border: 1px solid #c3e6cb;">
+    <b th:text="${mensagem}"></b>
+</div>
 
-<table border="1" width="100%">
+<div style="border: 1px solid #ccc; padding: 20px; background-color: #f9f9f9; margin-bottom: 20px;">
+    <h3>Novo Documento</h3>
+    <form method="POST" action="/upload" enctype="multipart/form-data">
+        <label>Título:</label><br>
+        <input type="text" name="titulo" required placeholder="Ex: Relatório Final"><br><br>
+
+        <label>Arquivo:</label><br>
+        <input type="file" name="arquivo" required><br><br>
+
+        <button type="submit">Enviar Arquivo</button>
+    </form>
+</div>
+
+<hr>
+
+<h3>Documentos Salvos</h3>
+<table border="1" cellpadding="10" cellspacing="0" width="100%">
     <thead>
-    <tr>
+    <tr style="background-color: #eee;">
         <th>ID</th>
         <th>Título</th>
-        <th>Nome do Arquivo</th>
-        <th>Data</th>
+        <th>Arquivo</th>
+        <th>Caminho (Debug)</th>
     </tr>
     </thead>
     <tbody>
@@ -22,7 +39,7 @@
         <td th:text="${doc.id}">1</td>
         <td th:text="${doc.titulo}">Titulo</td>
         <td th:text="${doc.nomeArquivo}">arquivo.pdf</td>
-        <td th:text="${doc.dataUpload}">2023-01-01</td>
+        <td th:text="${doc.caminhoArquivo}" style="font-size: 10px; color: gray;">C:/...</td>
     </tr>
     <tr th:if="${meusDocumentos.empty}">
         <td colspan="4" align="center">Nenhum documento encontrado.</td>
