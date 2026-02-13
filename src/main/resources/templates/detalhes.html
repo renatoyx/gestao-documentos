@@ -42,9 +42,9 @@
                 </div>
 
                 <div class="d-grid mt-4">
-                    <button type="button" class="btn btn-outline-primary">
+                    <a th:href="@{/download/{id}(id=${documento.id})}" class="btn btn-outline-primary text-decoration-none">
                         <i class="bi bi-download me-2"></i>Baixar Arquivo
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>

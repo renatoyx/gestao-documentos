@@ -98,4 +98,23 @@ public class DocumentoController {
         Path caminhoArquivo = diretorioPath.resolve(arquivo.getOriginalFilename());
         Files.write(caminhoArquivo, arquivo.getBytes());
     }
+
+    @GetMapping("/download/{id}")
+    public ResponseEntity<Resource> baixarArquivo(@PathVariable Long id) {
+        try {
+            Documento doc = documentoRepository.findById(id).orElseThrow();
+            Path caminhoDoArquivo = Paths.get(doc.getCaminhoArquivo());
+            Resource resource = new UrlResource(caminhoDoArquivo.toUri());
+
+            if (resource.exists() || resource.isReadable()) {
+                return ResponseEntity.ok()
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + doc.getNomeArquivo() + "\"")
+                        .body(resource);
+            } else {
+                throw new RuntimeException("Não foi possível ler o arquivo.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }
