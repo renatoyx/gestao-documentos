@@ -1,0 +1,89 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+
+body {
+    background-color: #f4f6f9;
+    font-family: 'Inter', sans-serif;
+    color: #333;
+}
+
+h1, h2, h3 {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.card-custom {
+    background: #fff;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s;
+}
+
+.table-custom th {
+    background-color: #f8f9fa;
+    color: #6c757d;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.table-custom td {
+    vertical-align: middle;
+    padding: 1rem 0.75rem;
+}
+
+.btn-primary-custom {
+    background-color: #4f46e5;
+    border-color: #4f46e5;
+    color: white;
+    padding: 0.5rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-primary-custom:hover {
+    background-color: #4338ca;
+    color: white;
+}
+
+.action-link {
+    color: #6b7280;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.action-link:hover {
+    color: #4f46e5;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: #9ca3af;
+}
+
+.comment-box {
+    padding: 15px;
+    border-bottom: 1px solid #f1f1f1;
+}
+.comment-box:last-child {
+    border-bottom: none;
+}
+.comment-avatar {
+    width: 40px;
+    height: 40px;
+    background-color: #e0e7ff;
+    color: #4f46e5;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}

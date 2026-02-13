@@ -2,50 +2,111 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <title>Gestão de Documentos</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="/css/style.css" rel="stylesheet">
 </head>
 <body>
 
-<div th:if="${mensagem}" style="background-color: #d4edda; color: #155724; padding: 10px; margin-bottom: 15px; border: 1px solid #c3e6cb;">
-    <b th:text="${mensagem}"></b>
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom py-3">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+            <i class="bi bi-folder2-open text-primary" style="font-size: 1.5rem;"></i>
+            <span class="fw-bold">DocManager</span>
+        </a>
+    </div>
+</nav>
+
+<div class="container mt-5">
+
+    <div th:if="${mensagem}" class="alert alert-success d-flex align-items-center mb-4 border-0 shadow-sm" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i>
+        <span th:text="${mensagem}"></span>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-end mb-4">
+        <div>
+            <h2 class="mb-1">Seus Arquivos</h2>
+            <p class="text-muted mb-0">Gerencie e comente seus documentos de estágio.</p>
+        </div>
+
+        <button class="btn btn-primary-custom shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#uploadArea">
+            <i class="bi bi-cloud-arrow-up-fill me-2"></i>Novo Upload
+        </button>
+    </div>
+
+    <div class="collapse mb-4" id="uploadArea">
+        <div class="card-custom p-4 bg-white border">
+            <h5 class="mb-3">Adicionar Novo Documento</h5>
+            <form method="POST" action="/upload" enctype="multipart/form-data" class="row g-3">
+                <div class="col-md-5">
+                    <input type="text" name="titulo" class="form-control" placeholder="Título do documento" required>
+                </div>
+                <div class="col-md-5">
+                    <input type="file" name="arquivo" class="form-control" required>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary-custom w-100">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card-custom p-4">
+        <div class="table-responsive">
+            <table class="table table-custom table-hover mb-0">
+                <thead>
+                <tr>
+                    <th scope="col" style="width: 40%;">Documento</th>
+                    <th scope="col">Data de Envio</th>
+                    <th scope="col" class="text-end">Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr th:each="doc : ${meusDocumentos}">
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div class="bg-light p-2 rounded me-3 text-primary">
+                                <i class="bi bi-file-earmark-text fs-4"></i>
+                            </div>
+                            <div>
+                                <div class="fw-bold text-dark" th:text="${doc.titulo}">Relatório Final</div>
+                                <small class="text-muted" th:text="${doc.nomeArquivo}">relatorio.pdf</small>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="text-muted">
+                            <i class="bi bi-calendar3 me-1"></i>
+                            <span th:text="${#temporals.format(doc.dataUpload, 'dd MMM yyyy')}">12 Ago 2025</span>
+                        </span>
+                    </td>
+                    <td class="text-end">
+                        <a th:href="@{/documento/{id}(id=${doc.id})}" class="action-link btn btn-sm btn-light border">
+                            Detalhes <i class="bi bi-chevron-right ms-1"></i>
+                        </a>
+                    </td>
+                </tr>
+
+                <tr th:if="${meusDocumentos.empty}">
+                    <td colspan="3">
+                        <div class="empty-state">
+                            <i class="bi bi-inbox fs-1 mb-3 d-block"></i>
+                            <h5>Nenhum documento por aqui</h5>
+                            <p>Comece fazendo o upload do seu primeiro arquivo.</p>
+                        </div>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
-<div style="border: 1px solid #ccc; padding: 20px; background-color: #f9f9f9; margin-bottom: 20px;">
-    <h3>Novo Documento</h3>
-    <form method="POST" action="/upload" enctype="multipart/form-data">
-        <label>Título:</label><br>
-        <input type="text" name="titulo" required placeholder="Ex: Relatório Final"><br><br>
-
-        <label>Arquivo:</label><br>
-        <input type="file" name="arquivo" required><br><br>
-
-        <button type="submit">Enviar Arquivo</button>
-    </form>
-</div>
-
-<hr>
-
-<h3>Documentos Salvos</h3>
-<table border="1" cellpadding="10" cellspacing="0" width="100%">
-    <thead>
-    <tr style="background-color: #eee;">
-        <th>ID</th>
-        <th>Título</th>
-        <th>Arquivo</th>
-        <th>Caminho (Debug)</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="doc : ${meusDocumentos}">
-        <td th:text="${doc.id}">1</td>
-        <td th:text="${doc.titulo}">Titulo</td>
-        <td th:text="${doc.nomeArquivo}">arquivo.pdf</td>
-        <td th:text="${doc.caminhoArquivo}" style="font-size: 10px; color: gray;">C:/...</td>
-    </tr>
-    <tr th:if="${meusDocumentos.empty}">
-        <td colspan="4" align="center">Nenhum documento encontrado.</td>
-    </tr>
-    </tbody>
-</table>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
