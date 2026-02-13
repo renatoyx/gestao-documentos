@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Gestão de Documentos</title>
-
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link href="/css/style.css" rel="stylesheet">
@@ -13,14 +13,14 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom py-3">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center gap-2" href="/">
-            <i class="bi bi-folder2-open text-primary" style="font-size: 1.5rem;"></i>
+            <i class="bi bi-folder2-open text-primary icon-lg"></i>
             <span class="fw-bold">DocManager</span>
         </a>
     </div>
 </nav>
 
 <div class="container mt-5">
-
+    
     <div th:if="${mensagem}" class="alert alert-success d-flex align-items-center mb-4 border-0 shadow-sm" role="alert">
         <i class="bi bi-check-circle-fill me-2"></i>
         <span th:text="${mensagem}"></span>
@@ -31,7 +31,7 @@
             <h2 class="mb-1">Seus Arquivos</h2>
             <p class="text-muted mb-0">Gerencie e comente seus documentos de estágio.</p>
         </div>
-
+        
         <button class="btn btn-primary-custom shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#uploadArea">
             <i class="bi bi-cloud-arrow-up-fill me-2"></i>Novo Upload
         </button>
@@ -59,13 +59,13 @@
             <table class="table table-custom table-hover mb-0">
                 <thead>
                 <tr>
-                    <th scope="col" style="width: 40%;">Documento</th>
+                    <th scope="col" class="col-documento">Documento</th>
                     <th scope="col">Data de Envio</th>
                     <th scope="col" class="text-end">Ações</th>
                 </tr>
                 </thead>
                 <tbody>
-
+                
                 <tr th:each="doc : ${meusDocumentos}">
                     <td>
                         <div class="d-flex align-items-center">
@@ -100,7 +100,7 @@
                         </div>
                     </td>
                 </tr>
-
+                
                 </tbody>
             </table>
         </div>
@@ -108,5 +108,6 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/main.js"></script>
 </body>
 </html>

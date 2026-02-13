@@ -21,7 +21,6 @@ O projeto foi construído priorizando a simplicidade de execução e a organiza�
 
 ## Como Executar o Projeto Localmente
 
-O projeto foi configurado para rodar da forma mais simples possível na máquina do avaliador.  
 Não é necessário instalar o Maven ou um banco de dados externo.
 
 ### Pré-requisito
