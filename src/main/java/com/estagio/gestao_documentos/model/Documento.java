@@ -40,6 +40,10 @@ public class Documento {
         this.dataUpload = LocalDateTime.now();
     }
 
+    @PrePersist
+    public void prePersist() {
+        this.dataUpload = LocalDateTime.now();
+    }
 
     public Long getId() {
         return id;
